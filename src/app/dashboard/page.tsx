@@ -256,7 +256,7 @@ export default function DashboardPage() {
   )
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#EFECE3] pb-32 text-foreground">
       <NavbarShell />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

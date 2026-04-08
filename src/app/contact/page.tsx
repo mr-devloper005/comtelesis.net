@@ -18,11 +18,11 @@ function getTone(kind: ReturnType<typeof getProductKind>) {
   }
   if (kind === 'editorial') {
     return {
-      shell: 'bg-[#fbf6ee] text-[#241711]',
-      panel: 'border border-[#dcc8b7] bg-[#fffdfa]',
-      soft: 'border border-[#e6d6c8] bg-[#fff4e8]',
-      muted: 'text-[#6e5547]',
-      action: 'bg-[#241711] text-[#fff1e2] hover:bg-[#3a241b]',
+      shell: 'bg-[#EFECE3] pb-32 text-black',
+      panel: 'border border-[#8FABD4]/40 bg-white text-slate-900 shadow-sm',
+      soft: 'border border-[#8FABD4]/35 bg-white/70 text-black',
+      muted: 'text-black/60',
+      action: 'bg-[#4A70A9] text-white hover:bg-[#3d5f8f]',
     }
   }
   if (kind === 'visual') {
@@ -83,13 +83,15 @@ export default function ContactPage() {
         <section className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Contact {SITE_CONFIG.name}</p>
-            <h1 className="mt-4 text-5xl font-semibold tracking-[-0.05em]">A support page that matches the product, not a generic contact form.</h1>
-            <p className={`mt-5 max-w-2xl text-sm leading-8 ${tone.muted}`}>Tell us what you are trying to publish, fix, or launch. We will route it through the right lane instead of forcing every request into the same support bucket.</p>
+            <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Contact the {SITE_CONFIG.name} team</h1>
+            <p className={`mt-5 max-w-2xl text-sm leading-8 ${tone.muted}`}>
+              Questions about articles, submissions, or partnerships — send a note and we will get back to you.
+            </p>
             <div className="mt-8 space-y-4">
               {lanes.map((lane) => (
                 <div key={lane.title} className={`rounded-[1.6rem] p-5 ${tone.soft}`}>
                   <lane.icon className="h-5 w-5" />
-                  <h2 className="mt-3 text-xl font-semibold">{lane.title}</h2>
+                  <h2 className="mt-3 text-xl font-semibold text-inherit">{lane.title}</h2>
                   <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{lane.body}</p>
                 </div>
               ))}

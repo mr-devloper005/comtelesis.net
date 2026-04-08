@@ -2,6 +2,7 @@
 
 export const storageKeys = {
   user: 'nexus-user',
+  authAccounts: 'nexus-auth-accounts',
   bookmarks: 'nexus-bookmarks',
   bookmarkCollections: 'nexus-bookmark-collections',
   articles: 'nexus-articles',

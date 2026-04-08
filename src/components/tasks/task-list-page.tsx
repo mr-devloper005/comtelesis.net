@@ -27,8 +27,8 @@ const taskIcons: Record<TaskKey, any> = {
 const variantShells = {
   'listing-directory': 'bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.08),transparent_24%),linear-gradient(180deg,#f8fbff_0%,#ffffff_100%)]',
   'listing-showcase': 'bg-[linear-gradient(180deg,#ffffff_0%,#f4f9ff_100%)]',
-  'article-editorial': 'bg-[radial-gradient(circle_at_top_left,rgba(251,191,36,0.08),transparent_20%),linear-gradient(180deg,#fff8ef_0%,#ffffff_100%)]',
-  'article-journal': 'bg-[linear-gradient(180deg,#fffdf9_0%,#f7f1ea_100%)]',
+  'article-editorial': 'bg-[#EFECE3] text-black',
+  'article-journal': 'bg-[#EFECE3] text-black',
   'image-masonry': 'bg-[linear-gradient(180deg,#09101d_0%,#111c2f_100%)] text-white',
   'image-portfolio': 'bg-[linear-gradient(180deg,#07111f_0%,#13203a_100%)] text-white',
   'profile-creator': 'bg-[linear-gradient(180deg,#0a1120_0%,#101c34_100%)] text-white',
@@ -71,11 +71,11 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
       }
     : layoutKey.startsWith('article') || layoutKey.startsWith('sbm')
       ? {
-          muted: 'text-[#72594a]',
-          panel: 'border border-[#dbc6b6] bg-white/90',
-          soft: 'border border-[#dbc6b6] bg-[#fff8ef]',
-          input: 'border border-[#dbc6b6] bg-white text-[#2f1d16]',
-          button: 'bg-[#2f1d16] text-[#fff4e4] hover:bg-[#452920]',
+          muted: 'text-black/55',
+          panel: 'border border-[#8FABD4]/40 bg-white text-slate-900 shadow-sm',
+          soft: 'border border-[#8FABD4]/35 bg-white/70 text-black',
+          input: 'rounded-full border-2 border-[#4A70A9]/35 bg-white text-black placeholder:text-black/40',
+          button: 'rounded-full bg-[#4A70A9] text-white hover:bg-[#3d5f8f]',
         }
       : {
           muted: 'text-slate-600',
@@ -86,7 +86,7 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
         }
 
   return (
-    <div className={`min-h-screen ${shellClass}`}>
+    <div className={`min-h-screen pb-32 ${shellClass}`}>
       <NavbarShell />
       <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         {task === 'listing' ? (
