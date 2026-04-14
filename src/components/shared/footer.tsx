@@ -16,7 +16,7 @@ const footerLinks = {
     { name: 'About', href: '/about' },
     { name: 'Editorial Team', href: '/team' },
     { name: 'Careers', href: '/careers' },
-    { name: 'Newsroom', href: '/press' },
+    { name: 'Newsroom', href: '/newsroom' },
     { name: 'Press', href: '/press' },
   ],
   resources: [
