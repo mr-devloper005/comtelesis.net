@@ -155,13 +155,6 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
     (typeof content.author === "string" && content.author.trim()) ||
     post.authorName ||
     "Editorial Team";
-  const articleDate = post.publishedAt
-    ? new Date(post.publishedAt).toLocaleDateString("en-IN", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    : "";
   const postTags = Array.isArray(post.tags) ? post.tags.filter((tag) => typeof tag === "string") : [];
   const location = content.address || content.location;
   const images = getImageUrls(post, content);
@@ -267,40 +260,48 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
         >
           <div className={cn(isClassified ? "space-y-8" : "")}>
             {isArticle ? (
-              <div className="mx-auto w-full max-w-4xl space-y-6 rounded-xl border border-[#8FABD4]/40 bg-white p-6 text-slate-900 shadow-sm sm:p-10">
-                <h1 className="text-4xl font-semibold leading-tight tracking-tight text-slate-900">{post.title}</h1>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-600">
-                  <span>By {articleAuthor}</span>
-                  {articleDate ? <span>{articleDate}</span> : null}
-                  <Badge variant="secondary" className="inline-flex items-center gap-1 bg-slate-100 text-slate-800">
-                    <Tag className="h-3.5 w-3.5" />
-                    {category}
-                  </Badge>
+              <div className="mx-auto w-full max-w-6xl">
+                <div className="grid gap-10 lg:grid-cols-[320px_1fr]">
+                  <div className="space-y-6">
+                    <div className="sticky top-24 space-y-6">
+                      <h1 className="text-3xl font-semibold leading-tight tracking-tight text-slate-900">{post.title}</h1>
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-600">
+                        <span>By {articleAuthor}</span>
+                        <Badge variant="secondary" className="inline-flex items-center gap-1 bg-slate-100 text-slate-800">
+                          <Tag className="h-3.5 w-3.5" />
+                          {category}
+                        </Badge>
+                      </div>
+                      {postTags.length ? (
+                        <div className="flex flex-wrap gap-2">
+                          {postTags.map((tag) => (
+                            <Badge key={tag} variant="outline" className="border-slate-200 text-slate-700">
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div className="space-y-8">
+                    {images[0] ? (
+                      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
+                        <ContentImage
+                          src={images[0]}
+                          alt={`${post.title} featured image`}
+                          fill
+                          className="object-cover"
+                          intrinsicWidth={1600}
+                          intrinsicHeight={900}
+                        />
+                      </div>
+                    ) : null}
+                    <div className="rounded-xl border border-[#8FABD4]/40 bg-white p-6 shadow-sm sm:p-10">
+                      <RichContent html={articleHtml} className="article-content leading-8 prose-p:my-6 prose-h2:my-8 prose-h3:my-6 prose-ul:my-6" />
+                    </div>
+                    <ArticleComments slug={post.slug} />
+                  </div>
                 </div>
-                {postTags.length ? (
-                  <div className="flex flex-wrap gap-2">
-                    {postTags.map((tag) => (
-                      <Badge key={tag} variant="outline" className="border-slate-200 text-slate-700">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                ) : null}
-                {articleSummary ? <p className="text-base leading-7 text-slate-600">{articleSummary}</p> : null}
-                {images[0] ? (
-                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
-                    <ContentImage
-                      src={images[0]}
-                      alt={`${post.title} featured image`}
-                      fill
-                      className="object-cover"
-                      intrinsicWidth={1600}
-                      intrinsicHeight={900}
-                    />
-                  </div>
-                ) : null}
-                <RichContent html={articleHtml} className="article-content leading-8 prose-p:my-6 prose-h2:my-8 prose-h3:my-6 prose-ul:my-6" />
-                <ArticleComments slug={post.slug} />
               </div>
             ) : null}
 

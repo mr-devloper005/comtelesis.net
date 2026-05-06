@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         data-site-shell={recipe.homeLayout}
         data-motion-pack={recipe.motionPack}
         data-nav-layout={hasLeftSidebarNav ? 'sidebar-left' : 'topbar'}
-        className={`${brandPack.bodyClassName} ${brandPack.fontClassName} ${brandPack.paletteClassName}${hasLeftSidebarNav ? ' factory-left-nav' : ''}`}
+        className={`font-sans ${brandPack.bodyClassName} ${brandPack.fontClassName} ${brandPack.paletteClassName}${hasLeftSidebarNav ? ' factory-left-nav' : ''}`}
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <AuthProvider>
