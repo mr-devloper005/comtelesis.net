@@ -51,9 +51,6 @@ export function BookmarkCollectionCard({ collection }: { collection: BookmarkCol
           </p>
           <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground">
             <span>{collection.bookmarks.length} bookmarks</span>
-            <span suppressHydrationWarning>
-              Updated {mounted ? formatDistanceToNow(new Date(collection.updatedAt), { addSuffix: true }) : 'recently'}
-            </span>
           </div>
         </CardContent>
       </Card>

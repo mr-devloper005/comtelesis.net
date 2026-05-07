@@ -27,8 +27,8 @@ const taskIcons: Record<TaskKey, any> = {
 const variantShells = {
   'listing-directory': 'bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.08),transparent_24%),linear-gradient(180deg,#f8fbff_0%,#ffffff_100%)]',
   'listing-showcase': 'bg-[linear-gradient(180deg,#ffffff_0%,#f4f9ff_100%)]',
-  'article-editorial': 'bg-[#EFECE3] text-black',
-  'article-journal': 'bg-[#EFECE3] text-black',
+  'article-editorial': 'bg-[linear-gradient(135deg,#667eea_0%,#764ba2_100%)] text-white',
+  'article-journal': 'bg-[linear-gradient(135deg,#667eea_0%,#764ba2_100%)] text-white',
   'image-masonry': 'bg-[linear-gradient(180deg,#09101d_0%,#111c2f_100%)] text-white',
   'image-portfolio': 'bg-[linear-gradient(180deg,#07111f_0%,#13203a_100%)] text-white',
   'profile-creator': 'bg-[linear-gradient(180deg,#0a1120_0%,#101c34_100%)] text-white',
@@ -71,11 +71,11 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
       }
     : layoutKey.startsWith('article') || layoutKey.startsWith('sbm')
       ? {
-          muted: 'text-black/55',
-          panel: 'border border-[#8FABD4]/40 bg-white text-slate-900 shadow-sm',
-          soft: 'border border-[#8FABD4]/35 bg-white/70 text-black',
-          input: 'rounded-full border-2 border-[#4A70A9]/35 bg-white text-black placeholder:text-black/40',
-          button: 'rounded-full bg-[#4A70A9] text-white hover:bg-[#3d5f8f]',
+          muted: 'text-white/70',
+          panel: 'border border-white/20 bg-white/10 backdrop-blur-xl text-white shadow-xl',
+          soft: 'border border-white/15 bg-white/5 text-white/80',
+          input: 'rounded-full border-2 border-white/30 bg-white/10 text-white placeholder:text-white/50',
+          button: 'rounded-full bg-white text-purple-700 hover:bg-white/90 font-semibold',
         }
       : {
           muted: 'text-slate-600',
@@ -147,24 +147,28 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
         ) : null}
 
         {layoutKey === 'article-editorial' || layoutKey === 'article-journal' ? (
-          <section className="mb-12 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-            <div>
-              <p className={`text-xs uppercase tracking-[0.3em] ${ui.muted}`}>{taskConfig?.label || task}</p>
-              <h1 className="mt-3 max-w-4xl text-5xl font-semibold tracking-[-0.05em] text-foreground">{taskConfig?.description || 'Latest posts'}</h1>
-              <p className={`mt-5 max-w-2xl text-sm leading-8 ${ui.muted}`}>This reading surface uses slower pacing, stronger typographic hierarchy, and more breathing room so long-form content feels intentional rather than squeezed into a generic feed.</p>
-            </div>
-            <div className={`rounded-[2rem] p-6 ${ui.panel}`}>
-              <p className={`text-xs font-semibold uppercase tracking-[0.24em] ${ui.muted}`}>Reading note</p>
-              <p className={`mt-4 text-sm leading-7 ${ui.muted}`}>Use category filters to jump between topics without collapsing the page into the same repeated card rhythm used by other task types.</p>
-              <form className="mt-5 flex items-center gap-3" action={taskConfig?.route || '#'}>
-                <select name="category" defaultValue={normalizedCategory} className={`h-11 flex-1 rounded-xl px-3 text-sm ${ui.input}`}>
-                  <option value="all">All categories</option>
-                  {CATEGORY_OPTIONS.map((item) => (
-                    <option key={item.slug} value={item.slug}>{item.name}</option>
-                  ))}
-                </select>
-                <button type="submit" className={`h-11 rounded-xl px-4 text-sm font-medium ${ui.button}`}>Apply</button>
-              </form>
+          <section className="mb-16">
+            <div className={`relative overflow-hidden rounded-[2.5rem] border border-white/20 bg-white/10 backdrop-blur-2xl p-8 lg:p-12 shadow-2xl`}>
+              <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-purple-500/30 blur-3xl" />
+              <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-indigo-500/30 blur-3xl" />
+              <div className="relative z-10">
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
+                  <Icon className="h-4 w-4" /> {taskConfig?.label || task}
+                </div>
+                <h1 className="mt-6 max-w-3xl text-4xl font-bold tracking-tight lg:text-6xl lg:leading-[1.1]">{taskConfig?.description || 'Latest posts'}</h1>
+                <p className={`mt-6 max-w-2xl text-lg leading-relaxed ${ui.muted}`}>Discover thoughtfully curated articles with bold typography, immersive layouts, and a reading experience designed for focus and engagement.</p>
+                <div className="mt-8 flex flex-wrap items-center gap-4">
+                  <form className="flex items-center gap-3" action={taskConfig?.route || '#'}>
+                    <select name="category" defaultValue={normalizedCategory} className={`h-12 w-48 rounded-full border-2 border-white/30 bg-white/10 px-4 text-sm text-white backdrop-blur-sm focus:border-white/50`}>
+                      <option value="all">All categories</option>
+                      {CATEGORY_OPTIONS.map((item) => (
+                        <option key={item.slug} value={item.slug}>{item.name}</option>
+                      ))}
+                    </select>
+                    <button type="submit" className={`h-12 rounded-full px-6 text-sm font-semibold transition-transform hover:scale-105 ${ui.button}`}>Filter</button>
+                  </form>
+                </div>
+              </div>
             </div>
           </section>
         ) : null}
