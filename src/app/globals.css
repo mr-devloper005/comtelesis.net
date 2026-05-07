@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
@@ -79,9 +80,9 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-manrope), system-ui, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: 'Cherry Bomb One', cursive, system-ui, sans-serif;
+  --font-mono: 'Cherry Bomb One', cursive, ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display: 'Cherry Bomb One', cursive, ui-serif, Georgia, serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -134,6 +135,7 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans);
     min-height: 100vh;
     background-color: #efece3;
     background-image:
@@ -313,6 +315,7 @@ body[data-site-shell="market"] {
     linear-gradient(180deg, rgba(244, 246, 239, 0.98) 0%, rgba(255, 255, 255, 1) 100%);
 }
 
+.factory-font-editorial,
 .factory-font-editorial h1,
 .factory-font-editorial h2,
 .factory-font-editorial h3,
@@ -320,10 +323,12 @@ body[data-site-shell="market"] {
   font-family: var(--font-display);
 }
 
+.factory-font-directory,
 .factory-font-directory h1,
 .factory-font-directory h2,
 .factory-font-directory h3,
 .factory-font-directory h4,
+.factory-font-market,
 .factory-font-market h1,
 .factory-font-market h2,
 .factory-font-market h3,
@@ -331,6 +336,7 @@ body[data-site-shell="market"] {
   font-family: var(--font-sans);
 }
 
+.factory-font-studio,
 .factory-font-studio h1,
 .factory-font-studio h2,
 .factory-font-studio h3,

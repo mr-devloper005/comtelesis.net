@@ -54,8 +54,36 @@ export function TaskListClient({ task, initialPosts, category }: Props) {
 
   if (!merged.length) {
     return (
-      <div className="rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">
+      <div className="rounded-2xl border border-dashed border-white/20 bg-white/5 p-10 text-center text-white/60">
         No posts yet for this section.
+      </div>
+    );
+  }
+
+  const isArticle = task === 'article';
+
+  if (isArticle) {
+    const featuredPost = merged[0];
+    const remainingPosts = merged.slice(1);
+    const featuredLocalOnly = (featuredPost as any).localOnly;
+    const featuredHref = featuredLocalOnly
+      ? `/local/${task}/${featuredPost.slug}`
+      : buildPostUrl(task, featuredPost.slug);
+
+    return (
+      <div className="grid gap-8">
+        <div className="relative overflow-hidden rounded-[2.5rem] border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl">
+          <TaskPostCard post={featuredPost} href={featuredHref} taskKey={task} />
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {remainingPosts.map((post) => {
+            const localOnly = (post as any).localOnly;
+            const href = localOnly
+              ? `/local/${task}/${post.slug}`
+              : buildPostUrl(task, post.slug);
+            return <TaskPostCard key={post.id} post={post} href={href} taskKey={task} />;
+          })}
+        </div>
       </div>
     );
   }

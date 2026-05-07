@@ -38,8 +38,8 @@ const FEED_REVALIDATE_SECONDS = (() => {
   return Number.isFinite(parsed) && parsed > 0 ? parsed : 300;
 })();
 const REQUEST_TIMEOUT_MS = (() => {
-  const parsed = Number(process.env.NEXT_PUBLIC_PUBLIC_API_TIMEOUT_MS ?? 8000);
-  return Number.isFinite(parsed) && parsed >= 1000 ? parsed : 8000;
+  const parsed = Number(process.env.NEXT_PUBLIC_PUBLIC_API_TIMEOUT_MS ?? 30000);
+  return Number.isFinite(parsed) && parsed >= 1000 ? parsed : 30000;
 })();
 
 const getPublicUrl = (path: string) => {
@@ -54,7 +54,7 @@ async function fetchPublicJson<T>(path: string, options?: { fresh?: boolean }): 
   try {
     const response = await fetch(target, {
       method: "GET",
-      signal: AbortSignal.timeout(4000),
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
       headers: { "Content-Type": "application/json" },
       ...(options?.fresh ? { cache: "no-store" } : { next: { revalidate: FEED_REVALIDATE_SECONDS } }),
     });
