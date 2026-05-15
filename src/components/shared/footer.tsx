@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { FileText, BookOpenText, Layers, PenSquare, Github, Twitter, Linkedin, ArrowRight, Sparkles } from 'lucide-react'
+import { BookOpenText, Layers, Github, Twitter, Linkedin, ArrowRight, Sparkles } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/site-config'
 import { siteContent } from '@/config/site.content'
 import { getFactoryState } from '@/design/factory/get-factory-state'
@@ -9,27 +9,19 @@ const footerLinks = {
   platform: [
     { name: 'Latest Articles', href: '/articles', icon: BookOpenText },
     { name: 'Topics', href: '/topics', icon: Layers },
-    { name: 'Editorial Picks', href: '/blog', icon: PenSquare },
-    { name: 'Search', href: '/search', icon: FileText },
   ],
   company: [
     { name: 'About', href: '/about' },
-    { name: 'Editorial Team', href: '/team' },
     { name: 'Careers', href: '/careers' },
-    { name: 'Newsroom', href: '/newsroom' },
     { name: 'Press', href: '/press' },
   ],
   resources: [
-    { name: 'Writing Guide', href: '/editorial-guidelines' },
     { name: 'Help Center', href: '/help' },
-    { name: 'Reader Community', href: '/community' },
-    { name: 'Status', href: '/status' },
   ],
   legal: [
     { name: 'Privacy', href: '/privacy' },
     { name: 'Terms', href: '/terms' },
     { name: 'Cookies', href: '/cookies' },
-    { name: 'Licenses', href: '/licenses' },
   ],
 }
 
