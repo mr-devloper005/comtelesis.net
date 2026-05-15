@@ -88,11 +88,13 @@ export function TaskPostCard({
   href,
   taskKey,
   compact,
+  hideImage,
 }: {
   post: SitePost
   href: string
   taskKey?: TaskKey
   compact?: boolean
+  hideImage?: boolean
 }) {
   if (TASK_POST_CARD_OVERRIDE_ENABLED) {
     return <TaskPostCardOverride post={post} href={href} taskKey={taskKey} compact={compact} />
@@ -133,18 +135,30 @@ export function TaskPostCard({
 
     return (
       <Link href={href} className={`group flex h-full flex-col overflow-hidden transition duration-300 ${cardTone.frame}`}>
-        <div className="relative aspect-[16/11] overflow-hidden bg-slate-100">
-          <ContentImage src={image} alt={altText} fill sizes={imageSizes} quality={75} className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" intrinsicWidth={960} intrinsicHeight={720} />
-          <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4">
+        {hideImage ? (
+          <div className="flex items-center justify-between gap-3 px-5 pt-5">
             <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${cardTone.badge}`}>
               <Tag className="h-3.5 w-3.5" />
               {category}
             </span>
-            <span className="rounded-full bg-white/85 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-900">
+            <span className="rounded-full bg-slate-100 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-900">
               {variant === 'classified' ? 'Open now' : 'Verified'}
             </span>
           </div>
-        </div>
+        ) : (
+          <div className="relative aspect-[16/11] overflow-hidden bg-slate-100">
+            <ContentImage src={image} alt={altText} fill sizes={imageSizes} quality={75} className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" intrinsicWidth={960} intrinsicHeight={720} />
+            <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4">
+              <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${cardTone.badge}`}>
+                <Tag className="h-3.5 w-3.5" />
+                {category}
+              </span>
+              <span className="rounded-full bg-white/85 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-900">
+                {variant === 'classified' ? 'Open now' : 'Verified'}
+              </span>
+            </div>
+          </div>
+        )}
         <div className="flex flex-1 flex-col p-5">
           <div className="flex items-center justify-between gap-3">
             <h3 className={`line-clamp-2 text-xl font-semibold leading-snug ${cardTone.title}`}>{post.title}</h3>
@@ -185,15 +199,25 @@ export function TaskPostCard({
 
   return (
     <Link href={href} className={`group flex h-full flex-col overflow-hidden transition duration-300 ${visualVariant.frame}`}>
-      <div className={`relative ${imageAspect} overflow-hidden bg-[#ede2dc]`}>
-        <ContentImage src={image} alt={altText} fill sizes={imageSizes} quality={75} className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" intrinsicWidth={960} intrinsicHeight={720} />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-80" />
-        <span className={`absolute left-4 top-4 inline-flex items-center gap-1 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${visualVariant.badge}`}>
-          <Tag className="h-3.5 w-3.5" />
-          {category}
-        </span>
-        {variant === 'pdf' && <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-white/88 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-950 shadow"><FileText className="h-3.5 w-3.5" />PDF</span>}
-      </div>
+      {hideImage ? (
+        <div className="px-5 pt-5">
+          <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${visualVariant.badge}`}>
+            <Tag className="h-3.5 w-3.5" />
+            {category}
+          </span>
+          {variant === 'pdf' && <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-950 shadow"><FileText className="h-3.5 w-3.5" />PDF</span>}
+        </div>
+      ) : (
+        <div className={`relative ${imageAspect} overflow-hidden bg-[#ede2dc]`}>
+          <ContentImage src={image} alt={altText} fill sizes={imageSizes} quality={75} className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" intrinsicWidth={960} intrinsicHeight={720} />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-80" />
+          <span className={`absolute left-4 top-4 inline-flex items-center gap-1 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${visualVariant.badge}`}>
+            <Tag className="h-3.5 w-3.5" />
+            {category}
+          </span>
+          {variant === 'pdf' && <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-white/88 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-950 shadow"><FileText className="h-3.5 w-3.5" />PDF</span>}
+        </div>
+      )}
       <div className={`flex flex-1 flex-col p-5 ${compact ? 'py-4' : ''}`}>
         <h3 className={`line-clamp-2 font-semibold leading-snug ${variant === 'article' ? 'text-[1.35rem]' : 'text-lg'} ${visualVariant.title}`}>{post.title}</h3>
         <p className={`mt-3 text-sm leading-7 ${variant === 'article' ? 'line-clamp-4' : 'line-clamp-3'} ${visualVariant.muted}`}>{getExcerpt(content.description || post.summary) || 'Explore this post.'}</p>
