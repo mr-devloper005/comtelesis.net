@@ -1,37 +1,56 @@
-﻿'use client'
+import Link from "next/link";
+import { PageShell } from "@/components/shared/page-shell";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Download, FileImage, Newspaper } from "lucide-react";
 
-import { useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { PageShell } from '@/components/shared/page-shell'
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
-import { useToast } from '@/components/ui/use-toast'
-import { mockPressAssets, mockPressCoverage } from '@/data/mock-data'
-import { Download, ExternalLink, FileImage, Newspaper } from 'lucide-react'
+const pressAssets = [
+  {
+    id: "press-1",
+    title: "ComTelesis Logo Pack",
+    description: "Primary logo, icon, and simple usage notes for approved media mentions.",
+    fileType: "PNG",
+  },
+  {
+    id: "press-2",
+    title: "Publication Overview",
+    description: "Short description of ComTelesis coverage areas, audience, and editorial focus.",
+    fileType: "PDF",
+  },
+  {
+    id: "press-3",
+    title: "Brand Summary",
+    description: "Boilerplate copy for telecom, connectivity, and digital infrastructure stories.",
+    fileType: "DOC",
+  },
+];
+
+const pressCoverage = [
+  {
+    id: "coverage-1",
+    outlet: "Telecom Briefing",
+    headline: "ComTelesis brings clearer context to connectivity and infrastructure coverage.",
+    date: "Mar 2026",
+  },
+  {
+    id: "coverage-2",
+    outlet: "Network Market Review",
+    headline: "A practical article hub for broadband, mobile, and cloud-edge readers.",
+    date: "Feb 2026",
+  },
+];
 
 export default function PressPage() {
-  const { toast } = useToast()
-  const [activeAssetId, setActiveAssetId] = useState<string | null>(null)
-  const activeAsset = mockPressAssets.find((asset) => asset.id === activeAssetId)
-
   return (
     <PageShell
       title="Press"
-      description="Brand assets, media resources, and selected coverage of ComTelesis."
+      description="Media resources, brand notes, and selected coverage for ComTelesis."
       actions={
         <Button variant="outline" asChild className="border-[#002D62]/30 text-[#002D62] hover:bg-[#002D62]/5">
           <Link href="/newsroom">
             Newsroom updates
-            <ExternalLink className="ml-2 h-4 w-4" aria-hidden />
+            <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
           </Link>
         </Button>
       }
@@ -46,32 +65,32 @@ export default function PressPage() {
                 </div>
                 <div>
                   <h2 className="text-lg font-semibold text-[#002D62]">Press kit</h2>
-                  <p className="text-sm text-[#70757A]">Approved logos, screens, and short-form descriptions.</p>
+                  <p className="text-sm text-[#70757A]">Approved brand notes and media-ready summaries.</p>
                 </div>
               </div>
               <p className="text-sm leading-relaxed text-[#70757A]">
-                Use these materials for broadcast, print, and digital stories. Prefer the primary logo on light
-                backgrounds; request alternate lockups from communications if your layout requires a reversed treatment.
+                Use these materials when referencing ComTelesis in articles, directories, media briefs, and partner
+                communications. For interviews or custom assets, contact the team directly.
               </p>
             </CardContent>
           </Card>
-          <Card className="border-[#002D62]/15 bg-gradient-to-br from-[#002D62]/5 to-transparent shadow-none">
+          <Card className="border-[#002D62]/15 bg-[#002D62]/[0.03] shadow-none">
             <CardContent className="flex h-full flex-col justify-center p-8">
               <Newspaper className="h-8 w-8 text-[#002D62]" aria-hidden />
               <h3 className="mt-4 text-base font-semibold text-[#002D62]">Boilerplate</h3>
               <p className="mt-2 text-sm leading-relaxed text-[#70757A]">
-                ComTelesis is an independent editorial publication focused on connectivity, infrastructure, and the
-                policies shaping how people and businesses get online.
+                ComTelesis publishes clear articles about telecom, connectivity, digital infrastructure, and the
+                services that keep people and businesses connected.
               </p>
             </CardContent>
           </Card>
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-[#002D62]">Downloadable assets</h3>
-          <p className="mt-1 text-sm text-[#70757A]">Preview before download; file types match production exports.</p>
+          <h3 className="text-lg font-semibold text-[#002D62]">Media resources</h3>
+          <p className="mt-1 text-sm text-[#70757A]">Simple, static resources for references and media use.</p>
           <div className="mt-6 space-y-3">
-            {mockPressAssets.map((asset) => (
+            {pressAssets.map((asset) => (
               <div
                 key={asset.id}
                 className="flex flex-col gap-4 rounded-xl border border-[#002D62]/15 bg-white p-5 sm:flex-row sm:items-center sm:justify-between"
@@ -84,21 +103,11 @@ export default function PressPage() {
                   <Badge variant="secondary" className="bg-[#002D62]/10 text-[#002D62]">
                     {asset.fileType}
                   </Badge>
-                  <Button size="sm" variant="outline" className="border-[#002D62]/25" onClick={() => setActiveAssetId(asset.id)}>
-                    Preview
-                  </Button>
-                  <Button
-                    size="sm"
-                    className="bg-[#002D62] text-white hover:bg-[#002D62]/90"
-                    onClick={() =>
-                      toast({
-                        title: 'Download started',
-                        description: `${asset.title} is downloading.`,
-                      })
-                    }
-                  >
-                    <Download className="mr-1.5 h-3.5 w-3.5" aria-hidden />
-                    Download
+                  <Button size="sm" variant="outline" className="border-[#002D62]/25" asChild>
+                    <Link href="/contact">
+                      Request
+                      <Download className="ml-1.5 h-3.5 w-3.5" aria-hidden />
+                    </Link>
                   </Button>
                 </div>
               </div>
@@ -108,9 +117,9 @@ export default function PressPage() {
 
         <div>
           <h3 className="text-lg font-semibold text-[#002D62]">Press coverage</h3>
-          <p className="mt-1 text-sm text-[#70757A]">Selected mentions and partner stories.</p>
+          <p className="mt-1 text-sm text-[#70757A]">Selected mentions and context from telecom and technology media.</p>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {mockPressCoverage.map((item) => (
+            {pressCoverage.map((item) => (
               <Card
                 key={item.id}
                 className="border-l-4 border-l-[#002D62] border-t-[#002D62]/15 border-r-[#002D62]/15 border-b-[#002D62]/15 shadow-none transition-shadow hover:shadow-md"
@@ -125,36 +134,6 @@ export default function PressPage() {
           </div>
         </div>
       </div>
-
-      <Dialog open={Boolean(activeAsset)} onOpenChange={() => setActiveAssetId(null)}>
-        <DialogContent className="max-w-3xl">
-          <DialogHeader>
-            <DialogTitle className="text-[#002D62]">{activeAsset?.title}</DialogTitle>
-          </DialogHeader>
-          {activeAsset?.previewUrl && (
-            <div className="relative aspect-[16/9] overflow-hidden rounded-xl border border-[#002D62]/15 bg-muted">
-              <Image src={activeAsset.previewUrl} alt={activeAsset.title} fill className="object-cover" />
-            </div>
-          )}
-          <p className="text-sm text-[#70757A]">{activeAsset?.description}</p>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setActiveAssetId(null)}>
-              Close
-            </Button>
-            <Button
-              className="bg-[#002D62] text-white hover:bg-[#002D62]/90"
-              onClick={() =>
-                toast({
-                  title: 'Download started',
-                  description: `${activeAsset?.title} is downloading.`,
-                })
-              }
-            >
-              Download {activeAsset?.fileType}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </PageShell>
-  )
+  );
 }
