@@ -159,10 +159,10 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
                 <p className={`mt-6 max-w-2xl text-lg leading-relaxed ${ui.muted}`}>Discover thoughtfully curated articles with bold typography, immersive layouts, and a reading experience designed for focus and engagement.</p>
                 <div className="mt-8 flex flex-wrap items-center gap-4">
                   <form className="flex items-center gap-3" action={taskConfig?.route || '#'}>
-                    <select name="category" defaultValue={normalizedCategory} className={`h-12 w-48 rounded-full border-2 border-white/30 bg-white/10 px-4 text-sm text-white backdrop-blur-sm focus:border-white/50`}>
-                      <option value="all">All categories</option>
+                    <select name="category" defaultValue={normalizedCategory} className="h-12 w-48 rounded-full border-2 border-white/30 bg-white/10 px-4 text-sm text-white backdrop-blur-sm focus:border-white/50 [&>option]:bg-[#5f58d9] [&>option]:text-white">
+                      <option value="all" className="bg-[#5f58d9] text-white">All categories</option>
                       {CATEGORY_OPTIONS.map((item) => (
-                        <option key={item.slug} value={item.slug}>{item.name}</option>
+                        <option key={item.slug} value={item.slug} className="bg-[#5f58d9] text-white">{item.name}</option>
                       ))}
                     </select>
                     <button type="submit" className={`h-12 rounded-full px-6 text-sm font-semibold transition-transform hover:scale-105 ${ui.button}`}>Filter</button>
